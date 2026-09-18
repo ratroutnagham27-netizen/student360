@@ -41,4 +41,5 @@ Route::view('/teacher/dashboard', 'dashboards.teacher')
 
 Route::view('/parent/dashboard', 'dashboards.parent')
     ->middleware(['auth', 'role:parent'])
-    ->name('parent.dashboard');
+    ->name('parent.dashboard'); 
+
