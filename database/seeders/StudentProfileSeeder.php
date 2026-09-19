@@ -43,8 +43,8 @@ class StudentProfileSeeder extends Seeder
                 [
                     'personal' => [
                         'name'          => 'Ahmad Khalil',
-                        'date_of_birth' => '2011-03-15',
-                        'class_name'    => '9A',
+                        'date_of_birth' => '2015-03-15',
+                        'class_name'    => '5A',
                         'parent_id'     => $parents['khalil']->id,
                     ],
                     'academic' => [
@@ -63,8 +63,8 @@ class StudentProfileSeeder extends Seeder
                 [
                     'personal' => [
                         'name'          => 'Layla Hassan',
-                        'date_of_birth' => '2010-07-22',
-                        'class_name'    => '10B',
+                        'date_of_birth' => '2014-07-22',
+                        'class_name'    => '6B',
                         'parent_id'     => $parents['hassan']->id,
                     ],
                     'academic' => [
@@ -83,8 +83,8 @@ class StudentProfileSeeder extends Seeder
                 [
                     'personal' => [
                         'name'          => 'Omar Nassar',
-                        'date_of_birth' => '2012-11-08',
-                        'class_name'    => '8C',
+                        'date_of_birth' => '2016-11-08',
+                        'class_name'    => '4C',
                         'parent_id'     => $parents['nassar']->id,
                     ],
                     'academic' => [
