@@ -63,4 +63,15 @@ class User extends Authenticatable
     {
         return $this->role === UserRole::PARENT;
     }
+    public function canUpdateStudent(int $studentId): bool
+{
+    if (! $this->isTeacher() || $this->getKey() === null) {
+        return false;
+    }
+
+    return \App\Models\Student::query()
+        ->whereKey($studentId)
+        ->where('homeroom_teacher_id', $this->getKey())
+        ->exists();
+}
 }
