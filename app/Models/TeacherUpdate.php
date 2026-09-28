@@ -14,6 +14,10 @@ class TeacherUpdate extends Model
         'note',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);

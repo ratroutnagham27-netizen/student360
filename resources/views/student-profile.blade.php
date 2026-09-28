@@ -271,4 +271,58 @@
             </div>
         @endif
     </div>
+        {{-- ════════════════════════════════════════════════════ --}}
+    {{-- Teacher Updates Log — S360-XX (Reem)                --}}
+    {{-- ════════════════════════════════════════════════════ --}}
+    @isset($teacherUpdates)
+        <div class="panel">
+            <h2>
+                <i class="bi bi-clock-history"></i>
+                Teacher Updates Log
+            </h2>
+
+            @if ($teacherUpdates->isEmpty())
+                <p style="color: var(--muted); margin: 0;">
+                    No updates recorded yet.
+                </p>
+            @else
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                    @foreach ($teacherUpdates as $update)
+                        @php
+                            $categoryClass = match ($update->category) {
+                                'academic'   => 'note-info',
+                                'behavioral' => 'note-yellow',
+                                default      => 'note-info',
+                            };
+                        @endphp
+
+                        <div class="note {{ $categoryClass }}">
+                            <div style="display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        margin-bottom: 6px;
+                                        gap: 12px;">
+                                <strong style="text-transform: capitalize;">
+                                    {{ $update->category }}
+                                </strong>
+
+                                <small style="color: var(--muted); white-space: nowrap;">
+                                    {{ $update->created_at->format('M d, Y') }}
+                                </small>
+                            </div>
+
+                            <p style="margin: 0 0 8px 0;">
+                                {{ $update->note }}
+                            </p>
+
+                            <small style="color: var(--muted);">
+                                <i class="bi bi-person-circle"></i>
+                                {{ $update->teacher->name ?? 'Unknown teacher' }}
+                            </small>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+    @endisset
 @endsection
