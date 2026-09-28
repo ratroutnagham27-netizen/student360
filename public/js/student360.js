@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.note').forEach(note => {
-        if (!note.classList.contains('note-error')) {
-            setTimeout(() => {
-                note.style.transition = 'opacity 0.5s';
-                note.style.opacity = '0';
-                setTimeout(() => note.remove(), 500);
-            }, 5000);
-        }
+    // Auto-dismiss only flash messages (temporary alerts).
+    // Content notes (.note) are permanent and must NOT be removed.
+    document.querySelectorAll('.flash-message, .alert-auto-dismiss').forEach(message => {
+        setTimeout(() => {
+            message.style.transition = 'opacity 0.5s';
+            message.style.opacity = '0';
+            setTimeout(() => message.remove(), 500);
+        }, 5000);
     });
 });
