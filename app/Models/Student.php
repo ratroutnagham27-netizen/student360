@@ -37,4 +37,8 @@ class Student extends Model
     {
         return $this->hasMany(StudentBehaviorNote::class);
     }
+        public function teacherUpdates(): HasMany
+    {
+        return $this->hasMany(TeacherUpdate::class);
+    }
 }

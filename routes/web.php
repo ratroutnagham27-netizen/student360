@@ -2,6 +2,7 @@
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\TeacherUpdateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,7 @@ Route::view('/parent/dashboard', 'dashboards.parent')
 Route::view('/student-profile', 'student-profile')
     ->middleware(['auth', 'role:admin,teacher,parent'])
     ->name('student.profile');
+
+Route::post('/teacher-updates', [TeacherUpdateController::class, 'store'])
+    ->middleware(['auth', 'role:teacher'])
+    ->name('teacher-updates.store');
