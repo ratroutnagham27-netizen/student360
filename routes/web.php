@@ -4,6 +4,7 @@ use App\Enums\UserRole;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentProfileController;
 
 Route::get('/', function () {
     if (! Auth::check()) {
@@ -43,6 +44,6 @@ Route::view('/parent/dashboard', 'dashboards.parent')
     ->middleware(['auth', 'role:parent'])
     ->name('parent.dashboard'); 
 
-Route::view('/student-profile', 'student-profile')
+Route::get('/student-profile', [StudentProfileController::class, 'show'])
     ->middleware(['auth', 'role:admin,teacher,parent'])
     ->name('student.profile');
