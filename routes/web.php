@@ -46,3 +46,4 @@ Route::view('/parent/dashboard', 'dashboards.parent')
 Route::view('/student-profile', 'student-profile')
     ->middleware(['auth', 'role:admin,teacher,parent'])
     ->name('student.profile');
+
