@@ -63,15 +63,28 @@ class User extends Authenticatable
     {
         return $this->role === UserRole::PARENT;
     }
+
     public function canUpdateStudent(int $studentId): bool
-{
-    if (! $this->isTeacher() || $this->getKey() === null) {
-        return false;
+    {
+        if (! $this->isTeacher() || $this->getKey() === null) {
+            return false;
+        }
+
+        return \App\Models\Student::query()
+            ->whereKey($studentId)
+            ->where('homeroom_teacher_id', $this->getKey())
+            ->exists();
     }
 
-    return \App\Models\Student::query()
-        ->whereKey($studentId)
-        ->where('homeroom_teacher_id', $this->getKey())
-        ->exists();
-}
+    public function canViewStudent(int $studentId): bool
+    {
+        if (! $this->isParent() || $this->getKey() === null) {
+            return false;
+        }
+
+        return \App\Models\Student::query()
+            ->whereKey($studentId)
+            ->where('parent_id', $this->getKey())
+            ->exists();
+    }
 }
