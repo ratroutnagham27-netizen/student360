@@ -30,15 +30,5 @@
                 <div class="info-value">6</div>
             </div>
         </div>
-    </div>
-    <div class="panel">
-        <h2><i class="bi bi-lightning-charge-fill"></i> Quick Actions</h2>
-        <div class="btn-row">
-            <button class="btn btn-outline-main" disabled><i class="bi bi-person-plus-fill"></i> Add Student</button>
-            <button class="btn btn-outline-main" disabled><i class="bi bi-person-badge-fill"></i> Add Teacher</button>
-            <button class="btn btn-outline-main" disabled><i class="bi bi-building"></i> Manage Classes</button>
-            <button class="btn btn-outline-main" disabled><i class="bi bi-file-earmark-text-fill"></i> View Reports</button>
-        </div>
-        <span class="soon-tag"><i class="bi bi-cone-striped"></i> Coming in Sprint 2</span>
-    </div>
+    </div> 
 @endsection

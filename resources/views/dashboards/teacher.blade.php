@@ -30,14 +30,4 @@
             <div class="info-value">Done</div>
         </div>
     </div>
-    <div class="panel">
-        <h2><i class="bi bi-lightning-charge-fill"></i> Quick Actions</h2>
-        <div class="btn-row">
-            <button class="btn btn-outline-blue" disabled><i class="bi bi-pencil-square"></i> Add Grade</button>
-            <button class="btn btn-outline-blue" disabled><i class="bi bi-star-fill"></i> Add Evaluation</button>
-            <button class="btn btn-outline-blue" disabled><i class="bi bi-calendar-x-fill"></i> Mark Attendance</button>
-            <button class="btn btn-outline-blue" disabled><i class="bi bi-journal-text"></i> Add Assignment</button>
-        </div>
-        <span class="soon-tag"><i class="bi bi-cone-striped"></i> Coming in Sprint 2</span>
-    </div>
 @endsection

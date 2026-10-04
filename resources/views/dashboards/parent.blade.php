@@ -49,10 +49,10 @@
     <div class="panel">
         <h2><i class="bi bi-eye-fill"></i> What You Can View</h2>
         <ul class="perm-list">
-            <li><span><i class="bi bi-bar-chart-fill" style="color: var(--teal);"></i> Grades and Academic Progress</span><span class="soon-badge">Coming Soon</span></li>
-            <li><span><i class="bi bi-calendar-check-fill" style="color: var(--green);"></i> Attendance Record</span><span class="soon-badge">Coming Soon</span></li>
-            <li><span><i class="bi bi-star-fill" style="color: var(--yellow);"></i> Teacher Evaluations</span><span class="soon-badge">Coming Soon</span></li>
-            <li><span><i class="bi bi-trophy-fill" style="color: var(--blue);"></i> Talents and Strengths</span><span class="soon-badge">Coming Soon</span></li>
+            <li><span><i class="bi bi-bar-chart-fill" style="color: var(--teal);"></i> Grades and Academic Progress</span></li>
+            <li><span><i class="bi bi-calendar-check-fill" style="color: var(--green);"></i> Attendance Record</span></li>
+            <li><span><i class="bi bi-star-fill" style="color: var(--yellow);"></i> Teacher Evaluations</span></li>
+            <li><span><i class="bi bi-trophy-fill" style="color: var(--blue);"></i> Talents and Strengths</span></li>
         </ul>
         <div class="note note-info" style="margin-top: 16px; margin-bottom: 0;">
             <i class="bi bi-shield-lock-fill"></i>
