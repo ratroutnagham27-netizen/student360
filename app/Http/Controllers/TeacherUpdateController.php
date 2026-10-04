@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\AuditLog;
+use App\Models\Student;
 use App\Models\TeacherUpdate;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -38,5 +40,19 @@ class TeacherUpdateController extends Controller
         ]);
 
         return back()->with('status', 'Update added successfully.');
+    }
+
+    public function index(Student $student): JsonResponse
+    {
+        if (! request()->user()->canViewStudent($student->id)) {
+            abort(403, 'You are not authorized to view updates for this student.');
+        }
+
+        $updates = $student->teacherUpdates()
+            ->where('visible_to_parent', true)
+            ->latest()
+            ->get(['id', 'student_id', 'teacher_id', 'category', 'note', 'created_at']);
+
+        return response()->json($updates);
     }
 }

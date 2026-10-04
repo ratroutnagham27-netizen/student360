@@ -52,3 +52,6 @@ Route::get('/student-profile', [StudentProfileController::class, 'show'])
 Route::post('/teacher-updates', [TeacherUpdateController::class, 'store'])
     ->middleware(['auth', 'role:teacher'])
     ->name('teacher-updates.store');
+    Route::get('/students/{student}/teacher-updates', [TeacherUpdateController::class, 'index'])
+    ->middleware(['auth', 'role:parent'])
+    ->name('teacher-updates.index');
