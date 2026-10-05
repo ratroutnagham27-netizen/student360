@@ -12,10 +12,12 @@ class TeacherUpdate extends Model
         'teacher_id',
         'category',
         'note',
+        'visible_to_parent',   // ✅ Added
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
+        'created_at'        => 'datetime',
+        'visible_to_parent' => 'boolean',  // ✅ Added — treat as true/false, not 0/1
     ];
 
     public function student(): BelongsTo

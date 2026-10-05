@@ -6,6 +6,7 @@ use App\Http\Controllers\TeacherUpdateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\ParentDashboardController;
 
 Route::get('/', function () {
     if (! Auth::check()) {
@@ -41,7 +42,7 @@ Route::view('/teacher/dashboard', 'dashboards.teacher')
     ->middleware(['auth', 'role:teacher'])
     ->name('teacher.dashboard');
 
-Route::view('/parent/dashboard', 'dashboards.parent')
+Route::get('/parent/dashboard', [ParentDashboardController::class, 'show'])
     ->middleware(['auth', 'role:parent'])
     ->name('parent.dashboard');
 
