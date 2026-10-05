@@ -16,28 +16,36 @@ class TeacherUpdateSeeder extends Seeder
         TeacherUpdate::query()->delete();
 
         foreach (Student::all() as $student) {
-            // Each student gets a few demo updates
             $updates = [
                 [
-                    'category' => 'academic',
-                    'note'     => "{$student->name} showed strong improvement in Mathematics this month.",
+                    'category'          => 'academic',
+                    'note'              => "{$student->name} showed strong improvement in Mathematics this month.",
+                    'visible_to_parent' => true,
                 ],
                 [
-                    'category' => 'behavioral',
-                    'note'     => "Excellent participation during group activities.",
+                    'category'          => 'behavioral',
+                    'note'              => "Excellent participation during group activities.",
+                    'visible_to_parent' => true,
                 ],
                 [
-                    'category' => 'personal',
-                    'note'     => "Demonstrated kindness by helping a classmate with homework.",
+                    'category'          => 'personal',
+                    'note'              => "Demonstrated kindness by helping a classmate with homework.",
+                    'visible_to_parent' => true,
+                ],
+                [
+                    'category'          => 'personal',
+                    'note'              => "Confidential: {$student->name} has been quieter than usual — follow-up with counselor.",
+                    'visible_to_parent' => false,
                 ],
             ];
 
             foreach ($updates as $data) {
                 TeacherUpdate::create([
-                    'student_id' => $student->id,
-                    'teacher_id' => $teacher->id,
-                    'category'   => $data['category'],
-                    'note'       => $data['note'],
+                    'student_id'        => $student->id,
+                    'teacher_id'        => $teacher->id,
+                    'category'          => $data['category'],
+                    'note'              => $data['note'],
+                    'visible_to_parent' => $data['visible_to_parent'],
                 ]);
             }
         }
