@@ -24,11 +24,12 @@ class TeacherUpdateController extends Controller
         }
 
         $teacherUpdate = TeacherUpdate::create([
-            'student_id' => $validated['student_id'],
-            'teacher_id' => $request->user()->id,
-            'category'   => $validated['category'],
-            'note'       => $validated['note'],
-        ]);
+    'student_id'         => $validated['student_id'],
+    'teacher_id'         => $request->user()->id,
+    'category'           => $validated['category'],
+    'note'               => $validated['note'],
+    'visible_to_parent'  => $request->boolean('visible_to_parent'),
+]);
 
         AuditLog::create([
             'user_id'        => $request->user()->id,
