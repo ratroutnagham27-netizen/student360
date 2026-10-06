@@ -29,7 +29,7 @@
         <form method="POST" action="{{ route('teacher-updates.store') }}" id="teacherUpdateForm"> 
             @csrf
 
-            <input type="hidden" name="student_id" value="{{ $student->id ?? 1 }}">
+           <input type="hidden" name="student_id" value="{{ $student->id ?? 1 }}">
 
             <div class="field">
                 <label for="category">Update Type <span style="color: var(--red);">*</span></label>
@@ -65,6 +65,25 @@
                     <span id="charCount">0</span> / 2000 characters
                 </small>
             </div>
+            {{-- ============ VISIBLE TO PARENT ============ --}}
+    <div class="field" style="margin-top: 20px;">
+     <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-weight: 500;">
+        <input 
+            type="checkbox" 
+            name="visible_to_parent" 
+            id="visible_to_parent"
+            value="1"
+            {{ old('visible_to_parent') ? 'checked' : '' }}
+            style="margin-top: 4px; width: 18px; height: 18px; cursor: pointer;"
+        >
+        <span>
+            <strong>Visible to parent</strong>
+            <small style="display: block; color: var(--muted); font-weight: 400; margin-top: 2px;">
+                When checked, this update will appear on the parent's dashboard. Leave unchecked to keep it private to staff.
+            </small>
+        </span>
+    </label>
+</div>
 
             <div class="btn-row" style="margin-top: 24px;">
                 <button type="submit" class="btn btn-main">
