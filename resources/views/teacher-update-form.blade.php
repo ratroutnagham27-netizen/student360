@@ -29,7 +29,7 @@
         <form method="POST" action="{{ route('teacher-updates.store') }}" id="teacherUpdateForm"> 
             @csrf
 
-            <input type="hidden" name="student_id" value="2">
+           <input type="hidden" name="student_id" value="{{ $student->id ?? 1 }}">
 
             <div class="field">
                 <label for="category">Update Type <span style="color: var(--red);">*</span></label>
