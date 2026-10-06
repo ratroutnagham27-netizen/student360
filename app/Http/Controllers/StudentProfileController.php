@@ -11,12 +11,14 @@ class StudentProfileController extends Controller
     {
         // Sprint 3 demo: show the first student.
         // Future: use route parameter /students/{student}/profile
-        $student = Student::with('parent')->firstOrFail();
+        $student = Student::with('parent')->first();
 
-        $teacherUpdates = TeacherUpdate::with('teacher')
-            ->where('student_id', $student->id)
-            ->latest()
-            ->get();
+        $teacherUpdates = $student
+            ? TeacherUpdate::with('teacher')
+                ->where('student_id', $student->id)
+                ->latest()
+                ->get()
+            : collect();
 
         return view('student-profile', [
             'student'        => $student,
