@@ -40,18 +40,20 @@
 
         {{-- Stat cards --}}
         <div class="cards-row" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-            <div class="info-card">
+                        <div class="info-card">
                 <div class="info-text">
                     <div class="info-title">Academic Average</div>
                     <div class="info-value" style="color: var(--teal);">85%</div>
                     <small style="color: var(--muted);">Current term</small>
+                    <small style="color: var(--muted); display: block; font-style: italic;">Sample data</small>
                 </div>
             </div>
-            <div class="info-card">
+                        <div class="info-card">
                 <div class="info-text">
                     <div class="info-title">Attendance Rate</div>
                     <div class="info-value" style="color: var(--green);">96%</div>
                     <small style="color: var(--muted);">Excellent standing</small>
+                    <small style="color: var(--muted); display: block; font-style: italic;">Sample data</small>
                 </div>
             </div>
             <div class="info-card">
@@ -112,13 +114,7 @@
 
         {{-- Permissions panel (kept from جنى's original) --}}
         <div class="panel">
-            <h2><i class="bi bi-eye-fill"></i> What You Can View</h2>
-            <ul class="perm-list">
-                <li><span><i class="bi bi-bar-chart-fill" style="color: var(--teal);"></i> Grades and Academic Progress</span></li>
-                <li><span><i class="bi bi-calendar-check-fill" style="color: var(--green);"></i> Attendance Record</span></li>
-                <li><span><i class="bi bi-star-fill" style="color: var(--yellow);"></i> Teacher Evaluations</span></li>
-                <li><span><i class="bi bi-trophy-fill" style="color: var(--blue);"></i> Talents and Strengths</span></li>
-            </ul>
+                        <h2><i class="bi bi-eye-fill"></i> What You Can View</h2>
             <div class="note note-info" style="margin-top: 16px; margin-bottom: 0;">
                 <i class="bi bi-shield-lock-fill"></i>
                 You can only view information for your own child. Confidential staff notes are never shown.
