@@ -3,6 +3,7 @@
 use App\Enums\UserRole;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\TeacherUpdateController;
+use App\Http\Controllers\ParentConsentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentProfileController;
@@ -49,6 +50,14 @@ Route::get('/parent/dashboard', [ParentDashboardController::class, 'show'])
 Route::get('/student-profile', [StudentProfileController::class, 'show'])
     ->middleware(['auth', 'role:admin,teacher,parent'])
     ->name('student.profile');
+
+Route::get('/parent/consent', [ParentConsentController::class, 'show'])
+    ->middleware(['auth', 'role:parent'])
+    ->name('parent.consent');
+
+Route::post('/parent/consent', [ParentConsentController::class, 'store'])
+    ->middleware(['auth', 'role:parent'])
+    ->name('parent.consent.store');    
 
 Route::post('/teacher-updates', [TeacherUpdateController::class, 'store'])
     ->middleware(['auth', 'role:teacher'])
