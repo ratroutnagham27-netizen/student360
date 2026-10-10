@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\ParentDashboardController;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', function () {
     if (! Auth::check()) {
@@ -34,7 +35,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-Route::view('/admin/dashboard', 'dashboards.admin')
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'show'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.dashboard');
 
