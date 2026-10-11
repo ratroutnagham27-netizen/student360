@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\ParentDashboardController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\TeacherDashboardController;
 
 Route::get('/', function () {
@@ -35,14 +36,14 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-Route::view('/admin/dashboard', 'dashboards.admin')
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'show'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.dashboard');
 
 Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'show'])
     ->middleware(['auth', 'role:teacher'])
     ->name('teacher.dashboard');
-    
+
 Route::get('/parent/dashboard', [ParentDashboardController::class, 'show'])
     ->middleware(['auth', 'role:parent'])
     ->name('parent.dashboard');
@@ -54,8 +55,7 @@ Route::get('/student-profile', [StudentProfileController::class, 'show'])
 Route::post('/teacher-updates', [TeacherUpdateController::class, 'store'])
     ->middleware(['auth', 'role:teacher'])
     ->name('teacher-updates.store');
-    Route::get('/students/{student}/teacher-updates', [TeacherUpdateController::class, 'index'])
+
+Route::get('/students/{student}/teacher-updates', [TeacherUpdateController::class, 'index'])
     ->middleware(['auth', 'role:parent'])
     ->name('teacher-updates.index');
-
-  

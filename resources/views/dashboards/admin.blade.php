@@ -13,22 +13,22 @@
             <div class="icon-box primary"><i class="bi bi-people-fill"></i></div>
             <div class="info-text">
                 <div class="info-title">Total Students</div>
-                <div class="info-value">128</div>
+                <div class="info-value">{{ $totalStudents }}</div>
             </div>
         </div>
         <div class="info-card">
             <div class="icon-box secondary"><i class="bi bi-person-workspace"></i></div>
             <div class="info-text">
                 <div class="info-title">Teachers</div>
-                <div class="info-value">14</div>
+                <div class="info-value">{{ $totalTeachers }}</div>
             </div>
         </div>
         <div class="info-card">
             <div class="icon-box accent"><i class="bi bi-house-door-fill"></i></div>
             <div class="info-text">
-                <div class="info-title">Classes</div>
-                <div class="info-value">6</div>
+                <div class="info-title">Parents</div>
+                <div class="info-value">{{ $totalParents }}</div>
             </div>
         </div>
-    </div> 
+    </div>
 @endsection
