@@ -9,25 +9,33 @@
         <span class="role-label teacher">Teacher</span>
     </div>
     <div class="cards-row" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-        <div class="info-card centered">
-            <div class="icon-box secondary"><i class="bi bi-people-fill"></i></div>
-            <div class="info-title">My Students</div>
-            <div class="info-value">32</div>
-        </div>
-        <div class="info-card centered">
-            <div class="icon-box primary"><i class="bi bi-clipboard-check-fill"></i></div>
-            <div class="info-title">Pending Grades</div>
-            <div class="info-value">5</div>
-        </div>
-        <div class="info-card centered">
-            <div class="icon-box accent"><i class="bi bi-star-fill"></i></div>
-            <div class="info-title">New Evaluations</div>
-            <div class="info-value">12</div>
-        </div>
-        <div class="info-card centered">
-            <div class="icon-box secondary"><i class="bi bi-calendar-check-fill"></i></div>
-            <div class="info-title">Today's Attendance</div>
-            <div class="info-value">Done</div>
-        </div>
+
+    <div class="info-card centered">
+        <div class="icon-box secondary"><i class="bi bi-people-fill"></i></div>
+        <div class="info-title">Total Students</div>
+        <div class="info-value">{{ $studentCount }}</div>
     </div>
+
+    <div class="info-card centered">
+        <div class="icon-box primary"><i class="bi bi-journal-text"></i></div>
+        <div class="info-title">My Updates</div>
+        <div class="info-value">{{ $myUpdatesCount }}</div>
+    </div>
+
+    <div class="info-card centered">
+        <div class="icon-box accent"><i class="bi bi-clock-history"></i></div>
+        <div class="info-title">Updates This Week</div>
+        <div class="info-value">{{ $myRecentUpdatesCount }}</div>
+    </div>
+
+</div>
+
+<div class="panel">
+    <h2><i class="bi bi-lightning-charge-fill"></i> Quick Actions</h2>
+    <div class="btn-row">
+        <a href="{{ route('student.profile') }}" class="btn btn-outline-blue">
+            <i class="bi bi-person-badge-fill"></i> View student profile
+        </a>
+    </div>
+</div>
 @endsection
