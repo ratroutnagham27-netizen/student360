@@ -16,29 +16,23 @@ class StudentProfileSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
-
-            // ─────────────────────────────────────────────
-            // 1. Supporting users (teacher + parents)
-            // ─────────────────────────────────────────────
+            // 1. Supporting users
             $teacher = User::where('email', 'teacher@student360.test')->firstOrFail();
+            $demoParent = User::where('email', 'parent@student360.test')->firstOrFail();
 
             $parents = [
-                'khalil' => $this->makeParent('parent.khalil@student360.test',  'Mr. Khalil Khalil'),
-                'hassan' => $this->makeParent('parent.hassan@student360.test',  'Mrs. Hassan Ali'),
-                'nassar' => $this->makeParent('parent.nassar@student360.test',  'Mr. Nassar Omar'),
+                'khalil' => $this->makeParent('parent.khalil@student360.test', 'Mr. Khalil'),
+                'hassan' => $this->makeParent('parent.hassan@student360.test', 'Mrs. Hassan Ali'),
+                'nassar' => $this->makeParent('parent.nassar@student360.test', 'Mr. Nassar Omar'),
             ];
 
-            // ─────────────────────────────────────────────
-            // 2. Clean previous demo data (idempotent)
-            // ─────────────────────────────────────────────
+            // 2. Clean previous demo data
             StudentBehaviorNote::query()->delete();
             StudentAcademicRecord::query()->delete();
             StudentProfile::query()->delete();
             Student::query()->delete();
 
-            // ─────────────────────────────────────────────
-            // 3. Demo dataset — 3 students, 3 sections each
-            // ─────────────────────────────────────────────
+            // 3. Demo dataset — 4 students within KG to Grade 6
             $students = [
                 [
                     'personal' => [
@@ -101,17 +95,27 @@ class StudentProfileSeeder extends Seeder
                         ['category' => 'Participation', 'note' => 'Shows gradual improvement in class participation.'],
                     ],
                 ],
+                [
+                    'personal' => [
+                        'name'          => 'Sara Demo',
+                        'date_of_birth' => '2018-04-10',
+                        'class_name'    => '3A',
+                        'parent_id'     => $demoParent->id,
+                    ],
+                    'academic' => [
+                        ['subject' => 'Mathematics', 'term' => 'Semester 1', 'score' => 80],
+                        ['subject' => 'Mathematics', 'term' => 'Semester 2', 'score' => 86],
+                    ],
+                    'behavior' => [
+                        ['category' => 'Participation', 'note' => 'Participates enthusiastically in classroom activities.'],
+                    ],
+                ],
             ];
 
-            // ─────────────────────────────────────────────
-            // 4. Insert everything
-            // ─────────────────────────────────────────────
+            // 4. Insert student data
             foreach ($students as $data) {
-
-                // (a) Normalized: students table
                 $student = Student::create($data['personal']);
 
-                // (b) Normalized: academic records
                 foreach ($data['academic'] as $record) {
                     StudentAcademicRecord::create([
                         'student_id' => $student->id,
@@ -121,7 +125,6 @@ class StudentProfileSeeder extends Seeder
                     ]);
                 }
 
-                // (c) Normalized: behavior notes
                 foreach ($data['behavior'] as $note) {
                     StudentBehaviorNote::create([
                         'student_id' => $student->id,
@@ -131,10 +134,8 @@ class StudentProfileSeeder extends Seeder
                     ]);
                 }
 
-                // (d) Flat: student_profiles — ONE row per student
-                //     with a representative academic + behavior snapshot
-                $latestAcademic = $data['academic'][1]; // Semester 2
-                $firstBehavior  = $data['behavior'][0];
+                $latestAcademic = $data['academic'][1];
+                $firstBehavior = $data['behavior'][0];
 
                 StudentProfile::create([
                     'name'          => $data['personal']['name'],
@@ -153,11 +154,11 @@ class StudentProfileSeeder extends Seeder
     }
 
     /**
-     * Create a demo parent user if not already present.
+     * Create or update a demo parent account.
      */
     private function makeParent(string $email, string $name): User
     {
-        return User::firstOrCreate(
+        return User::updateOrCreate(
             ['email' => $email],
             [
                 'name'     => $name,
