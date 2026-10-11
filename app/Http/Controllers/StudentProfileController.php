@@ -4,21 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\TeacherUpdate;
+use Illuminate\Support\Facades\Auth;
 
 class StudentProfileController extends Controller
 {
     public function show()
     {
-        // Sprint 3 demo: show the first student.
-        // Future: use route parameter /students/{student}/profile
-        $student = Student::with('parent')->first();
+        $user = Auth::user();
 
-        $teacherUpdates = $student
-            ? TeacherUpdate::with('teacher')
+        // ============ PARENT ============
+        if ($user->isParent()) {
+            $student = Student::with('parent')
+                ->where('parent_id', $user->id)
+                ->first();
+
+            if (! $student) {
+                abort(403, 'No student is linked to your account.');
+            }
+
+            $teacherUpdates = TeacherUpdate::with('teacher')
                 ->where('student_id', $student->id)
+                ->where('visible_to_parent', true)
                 ->latest()
-                ->get()
-            : collect();
+                ->get();
+        }
+        // ============ TEACHER / ADMIN ============
+        else {
+            $student = Student::with('parent')->first();
+
+            $teacherUpdates = $student
+                ? TeacherUpdate::with('teacher')
+                    ->where('student_id', $student->id)
+                    ->latest()
+                    ->get()
+                : collect();
+        }
 
         return view('student-profile', [
             'student'        => $student,

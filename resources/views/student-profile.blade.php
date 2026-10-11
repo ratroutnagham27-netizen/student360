@@ -42,24 +42,16 @@
         </div>
 
         <div style="flex: 1; min-width: 220px;">
-            <h2 style="margin-bottom: 8px;">
-                Jana Shreif
-            </h2>
-
-            <p style="color: var(--muted); margin: 0 0 6px 0;">
-                <i class="bi bi-mortarboard"></i>
-                Grade 10 - Section A
-            </p>
-
-            <p style="color: var(--muted); margin: 0 0 6px 0;">
-                <i class="bi bi-calendar-event"></i>
-                Age: 15
-            </p>
-
-            <p style="color: var(--muted); margin: 0;">
-                <i class="bi bi-telephone"></i>
-                Parent: Mr. Ali Hassan — +961 70 123456
-            </p>
+           <h2 style="margin-bottom: 8px;">{{ $student->name ?? 'Student' }}</h2>
+<p style="color: var(--muted); margin: 0 0 6px 0;">
+    <i class="bi bi-mortarboard"></i> {{ $student->class_name ?? '—' }}
+</p>
+<p style="color: var(--muted); margin: 0 0 6px 0;">
+    <i class="bi bi-calendar-event"></i> Age: {{ $student && $student->date_of_birth ? \Carbon\Carbon::parse($student->date_of_birth)->age : '—' }}
+</p>
+<p style="color: var(--muted); margin: 0;">
+    <i class="bi bi-telephone"></i> Parent: {{ $student->parent->name ?? 'N/A' }}
+</p>
         </div>
 
         <div>
@@ -243,34 +235,7 @@
         </div>
     </div>
 
-    <div class="panel">
-        <h2>
-            <i class="bi bi-journal-text"></i>
-            {{ $canViewConfidentialNotes
-                ? 'Teacher Notes & Achievements'
-                : 'Achievements' }}
-        </h2>
 
-        @if ($canViewConfidentialNotes)
-            <div class="note note-info" style="margin-bottom: 12px;">
-                <i class="bi bi-quote"></i>
-                Jana participates actively during group activities and shows
-                strong creativity in problem-solving.
-            </div>
-        @endif
-
-        <div class="note note-yellow" style="margin-bottom: 12px;">
-            <i class="bi bi-trophy-fill"></i>
-            Jana earned a "Math Star" badge this week for excellent performance.
-        </div>
-
-        @if ($canViewConfidentialNotes)
-            <div class="note note-info" style="margin-bottom: 0;">
-                <i class="bi bi-chat-quote"></i>
-                Teacher Ms. Layla: "Jana is a natural leader in science projects."
-            </div>
-        @endif
-    </div>
         {{-- ════════════════════════════════════════════════════ --}}
     {{-- Teacher Updates Log — S360-XX (Reem)                --}}
     {{-- ════════════════════════════════════════════════════ --}}
