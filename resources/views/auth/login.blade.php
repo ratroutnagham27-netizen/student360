@@ -44,14 +44,6 @@
                     <i class="bi bi-box-arrow-in-right"></i> Sign In
                 </button>
             </form>
-            <div class="demo-box">
-                <strong><i class="bi bi-info-circle-fill"></i> Demo Accounts:</strong>
-                <ul>
-                    <li><i class="bi bi-shield-fill"></i> <code>admin@student360.test</code> / <code>password</code></li>
-                    <li><i class="bi bi-person-workspace"></i> <code>teacher@student360.test</code> / <code>password</code></li>
-                    <li><i class="bi bi-people-fill"></i> <code>parent@student360.test</code> / <code>password</code></li>
-                </ul>
-            </div>
         </div>
     </div>
 @endsection
