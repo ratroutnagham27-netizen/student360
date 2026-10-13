@@ -20,24 +20,29 @@ class ParentConsentController extends Controller
 
     /**
      * Record the parent's consent + audit log, then redirect.
+     * Uses firstOrCreate so pressing the button twice does not
+     * create duplicate rows or duplicate audit log entries.
      */
     public function store(Request $request): RedirectResponse
     {
         $parent = $request->user();
 
-        $consent = ParentConsent::create([
-            'user_id'   => $parent->id,
-            'agreed_at' => now(),
-        ]);
+        $consent = ParentConsent::firstOrCreate(
+            ['user_id' => $parent->id],
+            ['agreed_at' => now()]
+        );
 
-        AuditLog::create([
-            'user_id'        => $parent->id,
-            'auditable_type' => ParentConsent::class,
-            'auditable_id'   => $consent->id,
-            'field'          => 'agreed_at',
-            'old_value'      => null,
-            'new_value'      => $consent->agreed_at->toDateTimeString(),
-        ]);
+        // Only log on the first creation
+        if ($consent->wasRecentlyCreated) {
+            AuditLog::create([
+                'user_id'        => $parent->id,
+                'auditable_type' => ParentConsent::class,
+                'auditable_id'   => $consent->id,
+                'field'          => 'agreed_at',
+                'old_value'      => null,
+                'new_value'      => $consent->agreed_at->toDateTimeString(),
+            ]);
+        }
 
         return redirect()->route('parent.dashboard');
     }

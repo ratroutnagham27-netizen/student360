@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\UserRole;
 use App\Models\User;
+use App\Models\ParentConsent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -114,6 +115,13 @@ class AuthenticationAndAuthorizationTest extends TestCase
 
         foreach ($cases as [$role, $allowedDashboard, $forbiddenDashboards]) {
             $user = User::factory()->create(['role' => $role]);
+
+            if ($role === UserRole::PARENT) {
+                ParentConsent::create([
+                    'user_id'   => $user->id,
+                    'agreed_at' => now(),
+                ]);
+            }
 
             $this->actingAs($user)
                 ->get($allowedDashboard)

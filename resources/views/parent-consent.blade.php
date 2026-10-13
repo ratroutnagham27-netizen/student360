@@ -22,13 +22,17 @@
         </p>
 
         <ul style="color: var(--text); line-height: 1.9; margin: 12px 0 20px 0;">
-            <li>Academic progress and grades</li>
+            <li>Your child's student profile (name, class, age)</li>
             <li>Teacher updates that the teacher has marked as visible to parents</li>
             <li>Behavior notes and achievements shared by the school</li>
         </ul>
 
         <p style="color: var(--text); line-height: 1.7;">
-            Confidential staff notes are <strong>never shown</strong> to parents.
+            Your consent is recorded with the date it was given.
+        </p>
+
+        <p style="color: var(--text); line-height: 1.7;">
+            Confidential teacher notes are <strong>never shown</strong> to parents.
             Your access is limited to your own child's record.
         </p>
 
