@@ -8,9 +8,17 @@ use App\Models\TeacherUpdate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class TeacherUpdateController extends Controller
 {
+    public function create(): View
+{
+    $students = \App\Models\Student::orderBy('name')->get();
+    
+    return view('teacher-updates.create', compact('students'));
+}
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([

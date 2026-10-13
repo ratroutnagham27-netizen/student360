@@ -45,6 +45,10 @@ Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'show'])
     ->middleware(['auth', 'role:teacher'])
     ->name('teacher.dashboard');
 
+Route::get('/teacher/updates/create', [TeacherUpdateController::class, 'create'])
+    ->middleware(['auth', 'role:teacher'])
+    ->name('teacher.updates.create');
+
 Route::get('/parent/dashboard', [ParentDashboardController::class, 'show'])
     ->middleware(['auth', 'role:parent'])
     ->name('parent.dashboard');

@@ -33,6 +33,9 @@
 <div class="panel">
     <h2><i class="bi bi-lightning-charge-fill"></i> Quick Actions</h2>
     <div class="btn-row">
+        <a href="{{ route('teacher.updates.create') }}" class="btn btn-outline-blue">
+            <i class="bi bi-pencil-square"></i> Add update
+        </a>
         <a href="{{ route('student.profile') }}" class="btn btn-outline-blue">
             <i class="bi bi-person-badge-fill"></i> View student profile
         </a>
