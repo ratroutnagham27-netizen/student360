@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Student;
 use App\Models\TeacherUpdate;
 use App\Models\User;
+use App\Models\ParentConsent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,6 +18,10 @@ class ParentProfilePrivacyTest extends TestCase
         $parent  = User::factory()->create(['role' => 'parent']);
         $teacher = User::factory()->create(['role' => 'teacher']);
 
+        ParentConsent::create([
+            'user_id'   => $parent->id,
+            'agreed_at' => now(),
+        ]);
         $student = Student::create([
             'name'          => 'Test Child',
             'date_of_birth' => '2015-01-01',
@@ -76,6 +81,11 @@ class ParentProfilePrivacyTest extends TestCase
     public function test_parent_with_no_child_gets_403(): void
     {
         $parent = User::factory()->create(['role' => 'parent']);
+
+        ParentConsent::create([
+            'user_id'   => $parent->id,
+            'agreed_at' => now(),
+        ]);
 
         $response = $this->actingAs($parent)->get('/student-profile');
 
