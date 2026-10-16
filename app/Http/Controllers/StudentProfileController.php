@@ -40,9 +40,23 @@ class StudentProfileController extends Controller
                 : collect();
         }
 
+        $academicRecordsByTerm = $student
+            ? $student->academicRecords()
+                ->orderBy('term')
+                ->orderBy('subject')
+                ->get()
+                ->groupBy('term')
+            : collect();
+
+        $academicAveragesByTerm = $academicRecordsByTerm->map(
+            fn ($records) => round($records->avg('score'), 2)
+        );
+
         return view('student-profile', [
-            'student'        => $student,
+            'student' => $student,
             'teacherUpdates' => $teacherUpdates,
+            'academicRecordsByTerm' => $academicRecordsByTerm,
+            'academicAveragesByTerm' => $academicAveragesByTerm,
         ]);
     }
 }

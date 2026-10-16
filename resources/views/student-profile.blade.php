@@ -42,16 +42,22 @@
         </div>
 
         <div style="flex: 1; min-width: 220px;">
-           <h2 style="margin-bottom: 8px;">{{ $student->name ?? 'Student' }}</h2>
-<p style="color: var(--muted); margin: 0 0 6px 0;">
-    <i class="bi bi-mortarboard"></i> {{ $student->class_name ?? '—' }}
-</p>
-<p style="color: var(--muted); margin: 0 0 6px 0;">
-    <i class="bi bi-calendar-event"></i> Age: {{ $student && $student->date_of_birth ? \Carbon\Carbon::parse($student->date_of_birth)->age : '—' }}
-</p>
-<p style="color: var(--muted); margin: 0;">
-    <i class="bi bi-telephone"></i> Parent: {{ $student->parent->name ?? 'N/A' }}
-</p>
+            <h2 style="margin-bottom: 8px;">{{ $student->name ?? 'Student' }}</h2>
+
+            <p style="color: var(--muted); margin: 0 0 6px 0;">
+                <i class="bi bi-mortarboard"></i>
+                {{ $student->class_name ?? '—' }}
+            </p>
+
+            <p style="color: var(--muted); margin: 0 0 6px 0;">
+                <i class="bi bi-calendar-event"></i>
+                Age: {{ $student && $student->date_of_birth ? \Carbon\Carbon::parse($student->date_of_birth)->age : '—' }}
+            </p>
+
+            <p style="color: var(--muted); margin: 0;">
+                <i class="bi bi-telephone"></i>
+                Parent: {{ $student->parent->name ?? 'N/A' }}
+            </p>
         </div>
 
         <div>
@@ -60,107 +66,62 @@
     </div>
 
     <div class="cards-row">
-
         <div class="panel">
             <h2>
                 <i class="bi bi-book-fill"></i>
                 Academic Performance
             </h2>
 
-            <div style="display: flex; flex-direction: column; gap: 14px;">
+            @forelse ($academicRecordsByTerm as $term => $records)
+                <h3 style="color: var(--muted); margin: 16px 0;">
+                    {{ $term }}
+                </h3>
 
-                <div>
-                    <div style="display: flex;
-                                justify-content: space-between;
-                                margin-bottom: 6px;">
-                        <span>Mathematics</span>
-                        <strong style="color: var(--teal);">85%</strong>
-                    </div>
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                    @foreach ($records as $record)
+                        <div>
+                            <div style="display: flex;
+                                        justify-content: space-between;
+                                        margin-bottom: 6px;">
+                                <span>{{ $record->subject }}</span>
+                                <strong style="color: var(--teal);">
+                                    {{ $record->score }}%
+                                </strong>
+                            </div>
 
-                    <div style="background: var(--line-color);
-                                height: 8px;
-                                border-radius: 4px;
-                                overflow: hidden;">
-                        <div style="background: var(--teal);
-                                    height: 100%;
-                                    width: 85%;">
+                            <div style="background: var(--line-color);
+                                        height: 8px;
+                                        border-radius: 4px;
+                                        overflow: hidden;">
+                                <div style="background: var(--teal);
+                                            height: 100%;
+                                            width: {{ $record->score }}%;">
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
 
-                <div>
-                    <div style="display: flex;
-                                justify-content: space-between;
-                                margin-bottom: 6px;">
-                        <span>Science</span>
-                        <strong style="color: var(--teal);">90%</strong>
-                    </div>
+                <hr style="margin: 20px 0;
+                           border: none;
+                           border-top: 1px solid var(--line-color);">
 
-                    <div style="background: var(--line-color);
-                                height: 8px;
-                                border-radius: 4px;
-                                overflow: hidden;">
-                        <div style="background: var(--teal);
-                                    height: 100%;
-                                    width: 90%;">
-                        </div>
-                    </div>
+                <div style="display: flex;
+                            justify-content: space-between;
+                            align-items: center;">
+                    <span style="color: var(--muted); font-weight: 600;">
+                        Overall Average — {{ $term }}
+                    </span>
+
+                    <strong style="font-size: 1.6rem; color: var(--teal);">
+                        {{ number_format($academicAveragesByTerm[$term], 2) }}%
+                    </strong>
                 </div>
-
-                <div>
-                    <div style="display: flex;
-                                justify-content: space-between;
-                                margin-bottom: 6px;">
-                        <span>English</span>
-                        <strong style="color: var(--teal);">78%</strong>
-                    </div>
-
-                    <div style="background: var(--line-color);
-                                height: 8px;
-                                border-radius: 4px;
-                                overflow: hidden;">
-                        <div style="background: var(--teal);
-                                    height: 100%;
-                                    width: 78%;">
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div style="display: flex;
-                                justify-content: space-between;
-                                margin-bottom: 6px;">
-                        <span>Arabic</span>
-                        <strong style="color: var(--teal);">82%</strong>
-                    </div>
-
-                    <div style="background: var(--line-color);
-                                height: 8px;
-                                border-radius: 4px;
-                                overflow: hidden;">
-                        <div style="background: var(--teal);
-                                    height: 100%;
-                                    width: 82%;">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <hr style="margin: 20px 0;
-                       border: none;
-                       border-top: 1px solid var(--line-color);">
-
-            <div style="display: flex;
-                        justify-content: space-between;
-                        align-items: center;">
-                <span style="color: var(--muted); font-weight: 600;">
-                    Overall Average
-                </span>
-
-                <strong style="font-size: 1.6rem; color: var(--teal);">
-                    84%
-                </strong>
-            </div>
+            @empty
+                <p style="color: var(--muted); margin: 0;">
+                    No academic records available.
+                </p>
+            @endforelse
         </div>
 
         <div class="panel">
@@ -169,8 +130,11 @@
                 Behavioral & Participation
             </h2>
 
-            <div style="display: flex; flex-direction: column; gap: 18px;">
+            <small style="color: var(--muted); display: block; font-style: italic; margin-bottom: 14px;">
+                Sample data
+            </small>
 
+            <div style="display: flex; flex-direction: column; gap: 18px;">
                 <div>
                     <div style="display: flex;
                                 justify-content: space-between;
@@ -227,16 +191,20 @@
                         Attendance
                     </span>
 
-                    <strong style="color: var(--green); font-size: 1.3rem;">
-                        96%
-                    </strong>
+                    <div style="text-align: right;">
+                        <strong style="color: var(--green); font-size: 1.3rem;">
+                            96%
+                        </strong>
+                        <small style="color: var(--muted); display: block; font-style: italic;">
+                            Sample data
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-
-        {{-- ════════════════════════════════════════════════════ --}}
+    {{-- ════════════════════════════════════════════════════ --}}
     {{-- Teacher Updates Log — S360-XX (Reem)                --}}
     {{-- ════════════════════════════════════════════════════ --}}
     @isset($teacherUpdates)
