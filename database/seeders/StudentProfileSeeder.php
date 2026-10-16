@@ -114,7 +114,7 @@ class StudentProfileSeeder extends Seeder
 
             // 4. Insert student data
             foreach ($students as $data) {
-                $student = Student::create($data['personal']);
+                $student = Student::create($data['personal'] + ['homeroom_teacher_id' => $teacher->id]);
 
                 foreach ($data['academic'] as $record) {
                     StudentAcademicRecord::create([
