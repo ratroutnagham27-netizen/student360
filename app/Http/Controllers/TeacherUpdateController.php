@@ -25,6 +25,7 @@ class TeacherUpdateController extends Controller
             'student_id' => ['required', 'integer', 'exists:students,id'],
             'category'   => ['required', 'string', 'in:academic,behavioral,personal'],
             'note'       => ['required', 'string', 'max:2000'],
+            'visible_to_parent' => ['nullable', 'boolean'],
         ]);
 
         if (! $request->user()->canUpdateStudent($validated['student_id'])) {
