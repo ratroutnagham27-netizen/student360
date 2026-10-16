@@ -45,12 +45,16 @@ Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'show'])
     ->middleware(['auth', 'role:teacher'])
     ->name('teacher.dashboard');
 
+Route::get('/teacher/updates/create', [TeacherUpdateController::class, 'create'])
+    ->middleware(['auth', 'role:teacher'])
+    ->name('teacher.updates.create');
+
 Route::get('/parent/dashboard', [ParentDashboardController::class, 'show'])
-    ->middleware(['auth', 'role:parent'])
+    ->middleware(['auth', 'role:parent', 'consent'])
     ->name('parent.dashboard');
 
 Route::get('/student-profile', [StudentProfileController::class, 'show'])
-    ->middleware(['auth', 'role:admin,teacher,parent'])
+    ->middleware(['auth', 'role:admin,teacher,parent', 'consent'])
     ->name('student.profile');
 
 Route::get('/parent/consent', [ParentConsentController::class, 'show'])

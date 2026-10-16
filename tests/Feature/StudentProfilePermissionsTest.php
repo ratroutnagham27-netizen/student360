@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use App\Models\Student;
 use App\Models\TeacherUpdate;
 use App\Models\User;
+use App\Models\ParentConsent;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -78,6 +79,11 @@ class StudentProfilePermissionsTest extends TestCase
     {
         $teacher = User::factory()->create(['role' => UserRole::TEACHER]);
         $parent  = User::factory()->create(['role' => UserRole::PARENT]);
+
+        ParentConsent::create([
+            'user_id'   => $parent->id,
+            'agreed_at' => now(),
+        ]);
 
         $student = Student::create([
             'name'          => 'Test Child',

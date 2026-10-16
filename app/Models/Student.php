@@ -16,6 +16,7 @@ class Student extends Model
         'date_of_birth',
         'class_name',
         'parent_id',
+        'homeroom_teacher_id',
     ];
 
     protected $casts = [
