@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\UserRole;
+use App\Models\ParentConsent;
 use App\Models\Student;
 use App\Models\StudentAcademicRecord;
 use App\Models\User;
@@ -15,6 +16,11 @@ class StudentProfileDataTest extends TestCase
 
     private function createStudent(User $parent): Student
     {
+        ParentConsent::firstOrCreate(
+            ['user_id' => $parent->id],
+            ['agreed_at' => now()]
+        );
+
         return Student::create([
             'name' => 'Ahmad Khalil',
             'date_of_birth' => '2015-03-15',
