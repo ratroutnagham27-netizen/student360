@@ -1,6 +1,27 @@
+
 # Student360 — Smart Student Development & School Communication Platform
 
 A web platform for tracking students academically, behaviorally, and personally — connecting school administrators, teachers, and parents around each student's full development, not just their grades.
+
+## Screenshots
+
+### Login
+<img width="1356" height="647" alt="login" src="https://github.com/user-attachments/assets/69dcf449-198e-4fab-93a2-2f082102c711" />
+
+### Privacy consent (parents)
+<img width="1357" height="649" alt="consent" src="https://github.com/user-attachments/assets/850db881-ce56-437d-b1ca-0a6ee28b5cfd" />
+
+
+### Parent dashboard
+<img width="1356" height="649" alt="parent" src="https://github.com/user-attachments/assets/74a0a037-3917-435f-8de2-c5371a5c134f" />
+
+### Teacher: add an update
+
+<img width="1339" height="638" alt="Teacher" src="https://github.com/user-attachments/assets/5dc7b8f8-9343-4f01-a59a-9f3d37755f61" />
+
+### Admin dashboard
+<img width="1348" height="649" alt="Admin" src="https://github.com/user-attachments/assets/a8e6a51f-7436-44c8-a789-622a2fadc97b" />
+
 
 ## Project Scope (V1)
 
