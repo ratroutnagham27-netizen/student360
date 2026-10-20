@@ -15,6 +15,11 @@ A web platform for tracking students academically, behaviorally, and personally 
 ### Parent dashboard
 <img width="1356" height="649" alt="parent" src="https://github.com/user-attachments/assets/74a0a037-3917-435f-8de2-c5371a5c134f" />
 
+
+### Parent: student profile
+<img width="1356" height="646" alt="image" src="https://github.com/user-attachments/assets/26443c4b-02fa-4439-b956-ee6b410bb248" />
+
+
 ### Teacher: add an update
 
 <img width="1339" height="638" alt="Teacher" src="https://github.com/user-attachments/assets/5dc7b8f8-9343-4f01-a59a-9f3d37755f61" />
