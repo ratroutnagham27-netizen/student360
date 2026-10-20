@@ -28,13 +28,31 @@ class TeacherUpdateFormPageTest extends TestCase
     public function test_teacher_can_open_create_page_and_sees_students(): void
     {
         $teacher = User::factory()->create(['role' => 'teacher']);
-        $student = $this->createStudent();
+        $student = $this->createStudent($teacher);
 
         $response = $this->actingAs($teacher)->get('/teacher/updates/create');
 
         $response->assertOk();
         $response->assertSee($student->name);
         $response->assertSee('Add Teacher Update');
+    }
+
+    public function test_teacher_only_sees_their_own_homeroom_students(): void
+    {
+        $teacher = User::factory()->create(['role' => 'teacher']);
+        $otherTeacher = User::factory()->create(['role' => 'teacher']);
+
+        $mine = $this->createStudent($teacher);
+        $mine->update(['name' => 'My Homeroom Student']);
+
+        $theirs = $this->createStudent($otherTeacher);
+        $theirs->update(['name' => 'Someone Elses Student']);
+
+        $response = $this->actingAs($teacher)->get('/teacher/updates/create');
+
+        $response->assertOk();
+        $response->assertSee('My Homeroom Student');
+        $response->assertDontSee('Someone Elses Student');
     }
 
     public function test_parent_gets_403_on_create_page(): void

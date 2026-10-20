@@ -81,6 +81,14 @@ class TeacherUpdateValidationTest extends TestCase
         $this->assertInvalidPayload($payload, 'category');
     }
 
+    public function test_note_shorter_than_10_characters_is_rejected(): void
+    {
+        $payload = $this->validPayload();
+        $payload['note'] = 'Too short';
+
+        $this->assertInvalidPayload($payload, 'note');
+    }
+
     public function test_note_longer_than_2000_characters_is_rejected(): void
     {
         $payload = $this->validPayload();

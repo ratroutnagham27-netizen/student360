@@ -12,19 +12,23 @@ use Illuminate\View\View;
 
 class TeacherUpdateController extends Controller
 {
-    public function create(): View
-{
-    $students = \App\Models\Student::orderBy('name')->get();
-    
-    return view('teacher-updates.create', compact('students'));
-}
+    public function create(Request $request): View
+    {
+        // A teacher can only add updates for their own homeroom students,
+        // so only those students are offered in the picker.
+        $students = Student::where('homeroom_teacher_id', $request->user()->id)
+            ->orderBy('name')
+            ->get();
+
+        return view('teacher-updates.create', compact('students'));
+    }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'student_id' => ['required', 'integer', 'exists:students,id'],
             'category'   => ['required', 'string', 'in:academic,behavioral,personal'],
-            'note'       => ['required', 'string', 'max:2000'],
+            'note'       => ['required', 'string', 'min:10', 'max:2000'],
             'visible_to_parent' => ['nullable', 'boolean'],
         ]);
 
@@ -33,12 +37,12 @@ class TeacherUpdateController extends Controller
         }
 
         $teacherUpdate = TeacherUpdate::create([
-    'student_id'         => $validated['student_id'],
-    'teacher_id'         => $request->user()->id,
-    'category'           => $validated['category'],
-    'note'               => $validated['note'],
-    'visible_to_parent'  => $request->boolean('visible_to_parent'),
-]);
+            'student_id'         => $validated['student_id'],
+            'teacher_id'         => $request->user()->id,
+            'category'           => $validated['category'],
+            'note'               => $validated['note'],
+            'visible_to_parent'  => $request->boolean('visible_to_parent'),
+        ]);
 
         AuditLog::create([
             'user_id'        => $request->user()->id,
