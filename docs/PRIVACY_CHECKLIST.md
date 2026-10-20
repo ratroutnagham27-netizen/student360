@@ -1,0 +1,21 @@
+# Student360 — Privacy and Data Protection Checklist
+
+**Version:** V1 (demo data only) · **Last updated:** 21 Oct 2026 · **Scope:** KG to Grade 6 (ages 3 to 12)
+
+Student360 currently runs on **demo data only**. As agreed with the mentor, real student data will not be used until this checklist has been reviewed and every "Planned" item below is done. Each row is marked **Implemented** (with the place in the app) or **Planned before real data** (with how).
+
+| # | Item | Status | Where in the app / how we will do it |
+|---|------|--------|--------------------------------------|
+| 1 | Role permissions and pilot role matrix | **Implemented** | Routes are protected by `auth` + `role:` middleware (`RoleMiddleware`, `routes/web.php`); a wrong role gets **403**. Teachers can add updates only for their own homeroom students (`User::canUpdateStudent`); parents can read only their own child (`User::canViewStudent`). Confidential staff notes are never shown to parents. Covered by automated tests (62 passing). *Gaps for V1 polish:* the student profile page shows a single student record rather than a role-scoped selection, and the teacher dashboard "Total Students" counts all students. |
+| 2 | Data minimization | **Implemented** (demo) / **Planned** | Only the fields needed are stored: student name, date of birth, class and parent link. No ID numbers, addresses or photos. Parents see only age, not the date of birth. *Before real data:* confirm with the school that date of birth is needed (otherwise store year or age band). |
+| 3 | Parent consent | **Implemented** | `parent_consents` table stores who agreed and when (`agreed_at`). Parents cannot reach their dashboard or the profile until they agree (`EnsureParentConsent` middleware). The first consent is written to the audit log; pressing the button twice does not create duplicates. Tested in `ParentConsentTest`. *Planned:* store the consent text version and support withdrawing consent. |
+| 4 | Logging of access and edits | **Implemented (partial)** | `audit_logs` records who, what, old value and new value for: student create/update/delete (`StudentObserver`), new teacher updates, and parent consent. *Not covered today:* who viewed a profile, logins/logouts and failed logins. *Planned:* log profile views and sign-ins, and keep audit entries when a user account is removed (today the `user_id` foreign key cascades on delete). |
+| 5 | Retention and deletion rules | **Planned** | No automatic retention yet. *Before real data:* agree a retention period with the school, add an admin delete/anonymize action for a leaving student (with an audit entry), and delete a student's data on a verified parent request. |
+| 6 | Protected backups | **Planned** | Demo data only, so no backups yet. *Before real data:* automated daily database backups, encrypted and stored away from the server, access limited to administrators, and a restore test before launch. |
+| 7 | HTTPS and secure authentication | **Implemented (app level)** / **Planned (hosting)** | Passwords are hashed (`hashed` cast, bcrypt); the session is regenerated on login and invalidated on logout; forms use CSRF tokens; public registration is disabled (tested); a failed login gives one generic message; sessions expire after 120 minutes. *Before real data:* serve only over HTTPS, set `APP_DEBUG=false` and secure session cookies in production, add login rate limiting, and require stronger passwords for staff accounts. |
+| 8 | Basic breach-response process | **Planned** | Written process to adopt before launch: (1) detect and record the time; (2) contain — disable affected accounts, reset passwords and keys; (3) assess what was accessed using `audit_logs`; (4) inform the school and the affected parents without delay; (5) fix the cause and record lessons learned. A named contact person on the school side will be agreed. |
+
+## Summary
+
+- **Implemented now:** role-based access with 403 on wrong role, homeroom/own-child restrictions, parent consent with audit entry, audit logging of student and update changes, hashed passwords, CSRF and session handling.
+- **Required before any real data:** retention and deletion rules, protected backups, HTTPS and production hardening, access/login logging, and the breach-response process, plus the two role-scoping gaps listed in row 1.
