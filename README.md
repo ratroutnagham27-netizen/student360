@@ -44,6 +44,25 @@ This first version covers:
 - An authorized parent view of selected student progress
 - A parent consent screen with audit logging
 
+## Main Features
+
+**Completed**
+- Role-based login for admin, teacher and parent, with a 403 page when a role opens a page it should not
+- Teacher dashboard and a form to add structured updates (academic, behavioral, personal) for the teacher's own homeroom students, with input validation
+- "Visible to parent" option on each update; confidential staff notes are never shown to parents
+- Parent dashboard showing only their own child and the updates shared with them
+- Parent consent screen on first login, saved with a timestamp and written to the audit log
+- Audit log for student edits, new teacher updates and consent
+- Admin dashboard with real database counts
+- Automated tests (62 passing)
+
+**Partly done**
+- Academic average and attendance on the student profile are labelled sample data
+
+**Not built yet**
+- Parent–teacher messaging
+- Admin screens to add and edit students and users
+
 ## Tech Stack
 
 - **Backend:** Laravel 12 (PHP 8.2+)
