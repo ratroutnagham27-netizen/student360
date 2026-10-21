@@ -35,6 +35,9 @@
                     </div>
                 </div>
             </div>
+                        <a href="{{ route('student.profile') }}" class="btn btn-outline-blue">
+                <i class="bi bi-person-badge-fill"></i> View full profile
+            </a>
             <span class="live-tag">Active</span>
         </div>
 
