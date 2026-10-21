@@ -54,7 +54,7 @@ This first version covers:
 - Parent consent screen on first login, saved with a timestamp and written to the audit log
 - Audit log for student edits, new teacher updates and consent
 - Admin dashboard with real database counts
-- Automated tests (62 passing)
+- Automated tests (64 passing)
 
 **Partly done**
 - Academic average and attendance on the student profile are labelled sample data
